@@ -3,43 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <title>Memo App</title>
+
+    <!-- Editor.jsをCDNから読み込む -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
   </head>
+
   <body>
+    <!-- エディターを表示するためのdiv要素 -->
     <div id="editor"></div>
+
     <script>
+      // Editor.jsを初期化する
       const editor = new EditorJS({
-        holder: 'editor',
+        holder: 'editor', // エディターを表示する要素のID
       });
 
       // ファイルのオープン
       window.ipc.on('open-file', async (_, filePath) => {
-        const content = await window.ipc.openFile(filePath);
+        const content = await window.ipc.openFile(filePath); // 指定されたファイルを開いてその内容を取得するようにメインプロセスに指示する
         if (content) {
-          await editor.render(content);
+          await editor.render(content); // 取得した内容をエディターにレンダリングする
         }
       });
 
       // ファイルの保存
       window.ipc.on('save-content', async (_, filePath) => {
-        const outputData = await editor.save();
+        const outputData = await editor.save(); // エディターの現在の内容を取得する
         if (filePath) {
-          await window.ipc.saveFile(outputData, filePath);
+          await window.ipc.saveFile(outputData, filePath); // 現在の内容を指定されたファイルに保存するようにメインプロセスに指示する
         } else {
-          await window.ipc.saveFileAs(outputData);
+          await window.ipc.saveFileAs(outputData); // 新しいファイルとして現在の内容を保存するようにメインプロセスに指示する
         }
       });
 
-      
-
       // アプリケーション終了時の保存
       window.addEventListener('beforeunload', async (e) => {
-        e.preventDefault();
-        await window.ipc.send('save-content');
+        e.preventDefault(); // デフォルトの動作をキャンセルする
+        await window.ipc.send('save-content'); // 現在の内容を保存するようにメインプロセスに指示する
       });
 
       // 読み込み時のコンテンツレンダリング
-      window.ipc.send('load-content');
+      window.ipc.send('load-content'); // メインプロセスに現在開いているファイルの内容を取得するように指示する
     </script>
   </body>
 </html>
