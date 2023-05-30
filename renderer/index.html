@@ -1,0 +1,29 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+      <title>Memo App</title>
+      <!-- editorJS関連読み込み -->
+      <script src="../node_modules/@editorjs/editorjs/dist/editorjs.umd.js"></script>
+      <script src="../node_modules/@editorjs/header/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/list/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/marker/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/checklist/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/quote/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/code/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/image/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/embed/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/table/dist/table.js"></script>
+      <script src="../node_modules/@editorjs/delimiter/dist/bundle.js"></script>
+      <script src="../node_modules/@editorjs/warning/dist/bundle.js"></script>
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <!-- エディターを表示するためのdiv要素 -->
+      <div id="editor"></div>
+
+      <script src="editor.js"></script>
+      <script src="renderer.js"></script>
+    </body>
+  </html>
